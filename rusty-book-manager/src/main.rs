@@ -2,8 +2,8 @@ use std::net::{Ipv4Addr, SocketAddr};
 
 use anyhow::Result;
 use axum::{extract::State, http::StatusCode, routing::get, Router};
-use tokio::net::TcpListener;
 use sqlx::{postgres::PgConnectOptions, PgPool};
+use tokio::net::TcpListener;
 
 struct DatabaseConfig {
     pub host: String,
