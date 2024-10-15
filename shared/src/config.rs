@@ -9,7 +9,7 @@ impl AppConfig {
         let database = DatabaseConfig {
             host: std::env::var("DATABASE_HOST")?,
             port: std::env::var("DATABASE_PORT")?.parse()?,
-            username: std::env::var("DATABASE_USRNAME")?,
+            username: std::env::var("DATABASE_USERNAME")?,
             password: std::env::var("DATABASE_PASSWORD")?,
             database: std::env::var("DATABASE_NAME")?,
         };
