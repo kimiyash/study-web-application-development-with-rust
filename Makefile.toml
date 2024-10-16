@@ -38,6 +38,7 @@ JAEGER_PORT = 6831
 run_task = [
     { name = [
         "compose-up-db",
+        "migrate",
         "compose-up-redis",
     ]}
 ]
@@ -138,8 +139,7 @@ args = [
     "run", "-it", "--rm",
     "--network", "host",
     "-v", "${PWD}:/work",
-    "postgress:15", "psql", "${DATABASE_URL}",
-    "-f", "/work/data/initial_setup.sql"
+    "postgres:15", "psql", "${DATABASE_URL}", "${@}"
 ]
 
 [tasks.compose]
