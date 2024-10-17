@@ -1,3 +1,5 @@
+.vscode
+sqlx-data.json
 **/.DS_Store
 **/target
 **/doc

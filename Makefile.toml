@@ -34,6 +34,13 @@ REDIS_PORT = "${REDIS_PORT_OUTER}"
 JAEGER_HOST = "localhost"
 JAEGER_PORT = 6831
 
+[tasks.echo]
+extend = "set-env-local"
+command = "echo"
+args = [
+    "${DATABASE_URL}"
+]
+
 [tasks.before-build]
 run_task = [
     { name = [
