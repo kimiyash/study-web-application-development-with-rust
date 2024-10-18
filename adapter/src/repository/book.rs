@@ -5,8 +5,8 @@ use kernel::model::book::{event::CreateBook, Book};
 use kernel::repository::book::BookRespository;
 use uuid::Uuid;
 
-use crate::database::ConnectionPool;
 use crate::database::model::book::BookRow;
+use crate::database::ConnectionPool;
 
 #[derive(new)]
 pub struct BookRespositoryImpl {
