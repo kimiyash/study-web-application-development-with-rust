@@ -73,3 +73,44 @@ impl BookRespository for BookRespositoryImpl {
         Ok(row.map(Book::from))
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[sqlx::test]
+    async fn test_register_book(pool: sqlx::PgPool) -> anyhow::Result<()> {
+        let repo = BookRespositoryImpl::new(ConnectionPool::new(pool));
+
+        let book = CreateBook {
+            title: "Test Title".into(),
+            author: "Test Author".into(),
+            isbn: "Test ISBN".into(),
+            description: "Test Description".into()
+        };
+
+        repo.create(book).await?;
+
+        let res = repo.find_all().await?;
+        assert_eq!(res.len(), 1);
+
+        let book_id = res[0].id;
+        let res = repo.find_by_id(book_id).await?;
+        assert!(res.is_some());
+
+        let Book {
+            id,
+            title,
+            author,
+            isbn,
+            description
+        } = res.unwrap();
+        assert_eq!(id, book_id);
+        assert_eq!(title, "Test Title");
+        assert_eq!(author, "Test Author");
+        assert_eq!(isbn, "Test ISBN");
+        assert_eq!(description, "Test Description");
+
+        Ok(())
+    }
+}
