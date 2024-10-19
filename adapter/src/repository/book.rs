@@ -86,7 +86,7 @@ mod tests {
             title: "Test Title".into(),
             author: "Test Author".into(),
             isbn: "Test ISBN".into(),
-            description: "Test Description".into()
+            description: "Test Description".into(),
         };
 
         repo.create(book).await?;
@@ -103,7 +103,7 @@ mod tests {
             title,
             author,
             isbn,
-            description
+            description,
         } = res.unwrap();
         assert_eq!(id, book_id);
         assert_eq!(title, "Test Title");
