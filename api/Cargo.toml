@@ -21,9 +21,11 @@ strum.workspace = true
 axum-extra.workspace = true
 tokio-stream.workspace = true
 garde.workspace = true
+anyhow.workspace = true
+uuid.workspace = true
+thiserror.workspace = true
 
 [dev-dependencies]
-anyhow.workspace = true
 hyper = "0.14.27"
 mockall.workspace = true
 rstest = "0.18.2"

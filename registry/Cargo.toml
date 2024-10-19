@@ -6,9 +6,7 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
-anyhow = "1.0.75"
 adapter.workspace = true
 kernel.workspace = true
 shared.workspace = true
 mockall.workspace = true
-
