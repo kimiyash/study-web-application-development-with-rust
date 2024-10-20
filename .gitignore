@@ -2,5 +2,6 @@
 sqlx-data.json
 **/.DS_Store
 **/target
+**/target*
 **/doc
 **/.db
