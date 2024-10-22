@@ -37,7 +37,7 @@ impl AuthRepository for AuthRepositoryImpl {
         self.kv
             .get(&key)
             .await
-            .map(|x| x.map(AutorizaedUserId::into_inner))
+            .map(|x| x.map(AuthorizedUserId::into_inner))
     }
 
     async fn verify_user(&self, email: &str, password: &str) -> AppResult<UserId> {
@@ -59,7 +59,7 @@ impl AuthRepository for AuthRepositoryImpl {
         Ok(user_item.user_id)
     }
 
-    async fn crate_token(&self, event: CreateToken) -> AppResult<AccessToken> {
+    async fn create_token(&self, event: CreateToken) -> AppResult<AccessToken> {
         let (key, value) = from(event);
         self.kv.set_ex(&key, &value, self.ttl).await?;
         Ok(key.into())

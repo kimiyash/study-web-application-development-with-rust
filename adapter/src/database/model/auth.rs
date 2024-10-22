@@ -14,12 +14,12 @@ pub struct UserItem {
 }
 
 pub struct AuthorizationKey(String);
-pub struct AutorizaedUserId(UserId);
+pub struct AuthorizedUserId(UserId);
 
-pub fn from(event: CreateToken) -> (AuthorizationKey, AutorizaedUserId) {
+pub fn from(event: CreateToken) -> (AuthorizationKey, AuthorizedUserId) {
     (
         AuthorizationKey(event.access_token),
-        AutorizaedUserId(event.user_id),
+        AuthorizedUserId(event.user_id),
     )
 }
 
