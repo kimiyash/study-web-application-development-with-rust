@@ -22,7 +22,7 @@ pub enum AppError {
     #[error("{0}")]
     ConvertToUuidError(#[from] uuid::Error),
     #[error("ログインに失敗しました")]
-    UnauthenticateError,
+    UnauthenticatedError,
     #[error("認可情報が誤っています")]
     UnauthorizedError,
     #[error("認可されていない操作です")]
@@ -39,7 +39,7 @@ impl IntoResponse for AppError {
             AppError::ValidationError(_) | AppError::ConvertToUuidError(_) => {
                 StatusCode::BAD_REQUEST
             }
-            AppError::UnauthenticateError | AppError::ForbiddenOperation => StatusCode::FORBIDDEN,
+            AppError::UnauthenticatedError | AppError::ForbiddenOperation => StatusCode::FORBIDDEN,
             AppError::UnauthorizedError => StatusCode::UNAUTHORIZED,
             e @ (AppError::TransactionError(_)
             | AppError::SpecificOperationError(_)
