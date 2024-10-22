@@ -42,20 +42,20 @@ impl From<&AccessToken> for AuthorizationKey {
 }
 
 impl RedisKey for AuthorizationKey {
-    type Value = AutorizaedUserId;
+    type Value = AuthorizedUserId;
 
     fn inner(&self) -> String {
         self.0.clone()
     }
 }
 
-impl RedisValue for AutorizaedUserId {
+impl RedisValue for AuthorizedUserId {
     fn inner(&self) -> String {
         self.0.to_string()
     }
 }
 
-impl TryFrom<String> for AutorizaedUserId {
+impl TryFrom<String> for AuthorizedUserId {
     type Error = AppError;
 
     fn try_from(s: String) -> AppResult<Self> {
@@ -65,7 +65,7 @@ impl TryFrom<String> for AutorizaedUserId {
     }
 }
 
-impl AutorizaedUserId {
+impl AuthorizedUserId {
     pub fn into_inner(self) -> UserId {
         self.0
     }

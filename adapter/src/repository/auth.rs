@@ -1,7 +1,6 @@
 use std::sync::Arc;
 
 use async_trait::async_trait;
-use bcrypt::bcrypt;
 use derive_new::new;
 use kernel::{
     model::{
@@ -14,7 +13,7 @@ use shared::error::{AppError, AppResult};
 
 use crate::{
     database::{
-        model::auth::{from, AuthorizationKey, AutorizaedUserId, UserItem},
+        model::auth::{from, AuthorizationKey, AuthorizedUserId, UserItem},
         ConnectionPool,
     },
     redis::RedisClient,
