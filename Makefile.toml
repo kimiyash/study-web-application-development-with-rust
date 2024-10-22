@@ -1,30 +1,29 @@
 [config]
 default_to_workspace = false
 
-# cargo-make で実行するコマンド全体に共通で設定する環境変数
 [env]
 HOST = "0.0.0.0"
-PORT = 18080
+PORT = 8080
 DATABASE_USERNAME = "app"
 DATABASE_PASSWORD = "passwd"
 DATABASE_NAME = "app"
 DATABASE_PORT_OUTER = 5432
 DATABASE_PORT_INNER = 5432
-REDIS_PORT_OUTER = 6739
-REDIS_PORT_INNER = 6739
+REDIS_PORT_OUTER = 6379
+REDIS_PORT_INNER = 6379
 AUTH_TOKEN_TTL = 86400
 
-# Docker Compose のネットワーク内での DB などへの接続情報
+# Docker Composeのネットワーク内でのDB等への接続情報
 [tasks.set-env-docker.env]
 DATABASE_HOST = "postgres"
 DATABASE_PORT = "${DATABASE_PORT_INNER}"
-DATABASE_URL = "postgresql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}?{user=${DATABASE_USERNAME}&password=${DATABASE_PASSWORD}"
+DATABASE_URL = "postgresql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}?user=${DATABASE_USERNAME}&password=${DATABASE_PASSWORD}"
 REDIS_HOST = "redis"
 REDIS_PORT = "${REDIS_PORT_INNER}"
 JAEGER_HOST = "jaeger"
 JAEGER_PORT = 6831
 
-# Docker Compose 外から DB などにアクセスする際の接続情報
+# Docker Compose外からDB等にアクセスする際の接続情報
 [tasks.set-env-local.env]
 DATABASE_HOST = "localhost"
 DATABASE_PORT = "${DATABASE_PORT_OUTER}"
