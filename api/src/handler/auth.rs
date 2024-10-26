@@ -4,7 +4,7 @@ use registry::AppRegistry;
 use shared::error::AppResult;
 
 use crate::{
-    extractor::AuthrizedUser,
+    extractor::AuthorizedUser,
     model::auth::{AccessTokenResponse, LoginRequest},
 };
 
@@ -28,7 +28,7 @@ pub async fn login(
 }
 
 pub async fn logout(
-    user: AuthrizedUser,
+    user: AuthorizedUser,
     State(registry): State<AppRegistry>,
 ) -> AppResult<StatusCode> {
     registry

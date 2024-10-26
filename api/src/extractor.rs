@@ -13,12 +13,12 @@ use shared::error::AppError;
 use registry::AppRegistry;
 
 // リクエストの前処理を実行後、handler に渡す構造体を定義
-pub struct AuthrizedUser {
+pub struct AuthorizedUser {
     pub access_token: AccessToken,
     pub user: User,
 }
 
-impl AuthrizedUser {
+impl AuthorizedUser {
     pub fn id(&self) -> UserId {
         self.user.id
     }
@@ -29,7 +29,7 @@ impl AuthrizedUser {
 }
 
 #[async_trait]
-impl FromRequestParts<AppRegistry> for AuthrizedUser {
+impl FromRequestParts<AppRegistry> for AuthorizedUser {
     type Rejection = AppError;
 
     // handler メソッドの引数に AuthorizedUser を追加したときはこのメソッドが呼ばれる。
