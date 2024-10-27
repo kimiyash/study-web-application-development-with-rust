@@ -1,8 +1,10 @@
 use crate::model::{
-    auth::event, checkout::{
+    auth::event,
+    checkout::{
         event::{CreateCheckout, UpdateReturned},
         Checkout,
-    }, id::{BookId, UserId}
+    },
+    id::{BookId, UserId},
 };
 use async_trait::async_trait;
 use shared::error::AppResult;

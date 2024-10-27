@@ -1,6 +1,7 @@
 use kernel::model::{
     checkout::{Checkout, CheckoutBook},
-    id::{BookId, CheckoutId, UserId}, user::User,
+    id::{BookId, CheckoutId, UserId},
+    user::User,
 };
 use sqlx::types::chrono::{DateTime, Utc};
 
