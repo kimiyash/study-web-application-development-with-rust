@@ -1,15 +1,19 @@
 use std::sync::Arc;
 
 use adapter::{
-    database::{model::{auth, checkout}, ConnectionPool},
+    database::{
+        model::{auth, checkout},
+        ConnectionPool,
+    },
     redis::RedisClient,
     repository::{
-        auth::AuthRepositoryImpl, book::BookRespositoryImpl, checkout::CheckouRepositoryImpl, health::HealthCheckRepositoryImpl, user::UserRepsitoryImpl
+        auth::AuthRepositoryImpl, book::BookRespositoryImpl, checkout::CheckouRepositoryImpl,
+        health::HealthCheckRepositoryImpl, user::UserRepsitoryImpl,
     },
 };
 use kernel::repository::{
-    auth::AuthRepository, book::BookRespository, health::HealthCheckRepository, user::UserRepsitory,
-    checkout::CheckouRepository,
+    auth::AuthRepository, book::BookRespository, checkout::CheckouRepository,
+    health::HealthCheckRepository, user::UserRepsitory,
 };
 use shared::config::AppConfig;
 
