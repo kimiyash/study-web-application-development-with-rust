@@ -1,15 +1,15 @@
 use std::sync::Arc;
 
 use adapter::{
-    database::{model::auth, ConnectionPool},
+    database::{model::{auth, checkout}, ConnectionPool},
     redis::RedisClient,
     repository::{
-        auth::AuthRepositoryImpl, book::BookRespositoryImpl, health::HealthCheckRepositoryImpl,
-        user::UserRepsitoryImpl,
+        auth::AuthRepositoryImpl, book::BookRespositoryImpl, checkout::CheckouRepositoryImpl, health::HealthCheckRepositoryImpl, user::UserRepsitoryImpl
     },
 };
 use kernel::repository::{
     auth::AuthRepository, book::BookRespository, health::HealthCheckRepository, user::UserRepsitory,
+    checkout::CheckouRepository,
 };
 use shared::config::AppConfig;
 
@@ -19,6 +19,7 @@ pub struct AppRegistry {
     book_repository: Arc<dyn BookRespository>,
     auth_repository: Arc<dyn AuthRepository>,
     user_repository: Arc<dyn UserRepsitory>,
+    checkout_repository: Arc<dyn CheckouRepository>,
 }
 
 impl AppRegistry {
@@ -35,11 +36,13 @@ impl AppRegistry {
             app_config.auth.ttl,
         ));
         let user_repository = Arc::new(UserRepsitoryImpl::new(pool.clone()));
+        let checkout_repository = Arc::new(CheckouRepositoryImpl::new(pool.clone()));
         Self {
             health_check_repository,
             book_repository,
             auth_repository,
             user_repository,
+            checkout_repository,
         }
     }
 
@@ -57,5 +60,9 @@ impl AppRegistry {
 
     pub fn user_repository(&self) -> Arc<dyn UserRepsitory> {
         self.user_repository.clone()
+    }
+
+    pub fn checked_repository(&self) -> Arc<dyn CheckouRepository> {
+        self.checkout_repository.clone()
     }
 }
