@@ -10,10 +10,13 @@ use shared::error::{AppError, AppResult};
 
 use crate::{
     extractor::AuthorizedUser,
-    model::{checkout::CheckoutsResponse, user::{
-        CreateUserRequest, UpdateUserPasswordRequest, UpdateUserPasswordRequestWithUserId,
-        UpdateUserRoleRequest, UpdateUserRoleRequestWithUserId, UserResponse, UsersResponse,
-    }},
+    model::{
+        checkout::CheckoutsResponse,
+        user::{
+            CreateUserRequest, UpdateUserPasswordRequest, UpdateUserPasswordRequestWithUserId,
+            UpdateUserRoleRequest, UpdateUserRoleRequestWithUserId, UserResponse, UsersResponse,
+        },
+    },
 };
 
 /// ユーザーを追加する(Admin only)
