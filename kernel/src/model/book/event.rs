@@ -1,7 +1,4 @@
-use crate::model::{
-    id::{BookId, UserId},
-    user::User,
-};
+use crate::model::id::{BookId, UserId};
 
 pub struct CreateBook {
     pub title: String,

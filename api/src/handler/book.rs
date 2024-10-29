@@ -1,5 +1,3 @@
-use std::sync::mpsc::RecvTimeoutError;
-
 use axum::{
     extract::{Path, Query, State},
     http::StatusCode,
