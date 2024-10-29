@@ -66,7 +66,7 @@ impl AppRegistry {
         self.user_repository.clone()
     }
 
-    pub fn checked_repository(&self) -> Arc<dyn CheckouRepository> {
+    pub fn checkout_repository(&self) -> Arc<dyn CheckouRepository> {
         self.checkout_repository.clone()
     }
 }

@@ -1,75 +1,71 @@
-use chrono::{DateTime, Utc};
-use kernel::model::{
-    checkout::{Checkout, CheckoutBook},
-    id::{BookId, CheckoutId, UserId},
+use crate::{extractor::AuthorizedUser, model::checkout::CheckoutsResponse};
+use axum::{
+    extract::{Path, State},
+    http::StatusCode,
+    Json,
 };
-use serde::Serialize;
+use kernel::model::{
+    checkout::event::{CreateCheckout, UpdateReturned},
+    id::{BookId, CheckoutId},
+};
 
-#[derive(Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct CheckoutsResponse {
-    pub items: Vec<CheckoutResponse>,
+use registry::AppRegistry;
+use shared::error::AppResult;
+
+pub async fn checkout_book(
+    user: AuthorizedUser,
+    Path(book_id): Path<BookId>,
+    State(registry): State<AppRegistry>,
+) -> AppResult<StatusCode> {
+    let create_checkout_history =
+        CreateCheckout::new(book_id, user.id(), chrono::Utc::now());
+
+    registry
+        .checkout_repository()
+        .create(create_checkout_history)
+        .await
+        .map(|_| StatusCode::CREATED)
 }
 
-impl From<Vec<Checkout>> for CheckoutsResponse {
-    fn from(value: Vec<Checkout>) -> Self {
-        Self {
-            items: value.into_iter().map(CheckoutResponse::from).collect(),
-        }
-    }
+pub async fn return_book(
+    user: AuthorizedUser,
+    Path((book_id, checkout_id)): Path<(BookId, CheckoutId)>,
+    State(registry): State<AppRegistry>,
+) -> AppResult<StatusCode> {
+    let update_returned = UpdateReturned::new(
+        checkout_id,
+        book_id,
+        user.id(),
+        chrono::Utc::now(),
+    );
+
+    registry
+        .checkout_repository()
+        .update_returned(update_returned)
+        .await.map(|_| StatusCode::OK)
 }
 
-#[derive(Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct CheckoutResponse {
-    pub id: CheckoutId,
-    pub checked_out_by: UserId,
-    pub checked_out_at: DateTime<Utc>,
-    pub returned_at: Option<DateTime<Utc>>,
-    pub book: CheckoutBookResponse,
+pub async fn show_checked_out_list(
+    _user: AuthorizedUser,
+    State(registry): State<AppRegistry>
+) -> AppResult<Json<CheckoutsResponse>> {
+    registry
+        .checkout_repository()
+        .find_unreturned_all()
+        .await
+        .map(CheckoutsResponse::from)
+        .map(Json)
 }
 
-impl From<Checkout> for CheckoutResponse {
-    fn from(value: Checkout) -> Self {
-        let Checkout {
-            id,
-            checked_out_by,
-            checked_out_at,
-            returned_at,
-            book,
-        } = value;
-        Self {
-            id,
-            checked_out_by,
-            checked_out_at,
-            returned_at,
-            book: book.into(),
-        }
-    }
-}
-
-#[derive(Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct CheckoutBookResponse {
-    pub id: BookId,
-    pub title: String,
-    pub author: String,
-    pub isbn: String,
-}
-
-impl From<CheckoutBook> for CheckoutBookResponse {
-    fn from(value: CheckoutBook) -> Self {
-        let CheckoutBook {
-            book_id,
-            title,
-            author,
-            isbn,
-        } = value;
-        Self {
-            id: book_id,
-            title,
-            author,
-            isbn,
-        }
-    }
+pub async fn checkout_history(
+    _user: AuthorizedUser,
+    Path(book_id): Path<BookId>,
+    State(registry): State<AppRegistry>,
+) -> AppResult<Json<CheckoutsResponse>> {
+    registry
+        .checkout_repository()
+        .find_history_by_book_id(book_id)
+        .await
+        .map(CheckoutsResponse::from)
+        .map(Json)
 }
