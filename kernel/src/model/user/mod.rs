@@ -1,3 +1,5 @@
+use serde::Serialize;
+
 use crate::model::{id::UserId, role::Role};
 
 pub mod event;
@@ -16,7 +18,8 @@ pub struct BookOwner {
     pub name: String,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct CheckoutUser {
     pub id: UserId,
     pub name: String,
