@@ -8,9 +8,7 @@ trait example_trait {
     fn example_method(&self, x: u32) -> u32;
 }
 
-fn example_func(
-    x: &dyn example_trait, v: u32
-) -> u32 {
+fn example_func(x: &dyn example_trait, v: u32) -> u32 {
     x.example_method(v)
 }
 

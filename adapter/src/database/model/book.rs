@@ -1,6 +1,8 @@
 use chrono::{DateTime, Utc};
 use kernel::model::{
-    book::{Book, Checkout}, id::{BookId, CheckoutId, UserId}, user::{BookOwner, CheckoutUser}
+    book::{Book, Checkout},
+    id::{BookId, CheckoutId, UserId},
+    user::{BookOwner, CheckoutUser},
 };
 
 use super::checkout::CheckoutRow;

@@ -7,7 +7,8 @@ use kernel::model::{
         Book, BookListOptions, Checkout,
     },
     id::{BookId, CheckoutId, UserId},
-    list::PaginatedList, user::CheckoutUser,
+    list::PaginatedList,
+    user::CheckoutUser,
 };
 use serde::{Deserialize, Serialize};
 
@@ -113,7 +114,7 @@ pub struct BookResponse {
     pub isbn: String,
     pub description: String,
     pub owner: BookOwner,
-    pub checkout: Option<BookCheckoutResponse>
+    pub checkout: Option<BookCheckoutResponse>,
 }
 
 impl From<Book> for BookResponse {

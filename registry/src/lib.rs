@@ -15,9 +15,9 @@ use kernel::repository::{
     auth::AuthRepository, book::BookRespository, checkout::CheckouRepository,
     health::HealthCheckRepository, user::UserRepsitory,
 };
-use shared::config::AppConfig;
 use mockall::predicate::*;
 use mockall::*;
+use shared::config::AppConfig;
 
 #[derive(Clone)]
 pub struct AppRegistryImpl {

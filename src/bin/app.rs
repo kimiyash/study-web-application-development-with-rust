@@ -35,12 +35,7 @@ async fn bootstrap() -> Result<()> {
 
     let cors = CorsLayer::new()
         .allow_headers(cors::Any)
-        .allow_methods([
-            Method::GET,
-            Method::POST,
-            Method::PUT,
-            Method::DELETE,
-        ])
+        .allow_methods([Method::GET, Method::POST, Method::PUT, Method::DELETE])
         .allow_origin(cors::Any);
 
     let app = Router::new()

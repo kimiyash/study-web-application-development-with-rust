@@ -1,7 +1,10 @@
 use async_trait::async_trait;
 use derive_new::new;
 use kernel::model::{
-    book::event::DeleteBook, checkout, id::{BookId, UserId}, list::PaginatedList
+    book::event::DeleteBook,
+    checkout,
+    id::{BookId, UserId},
+    list::PaginatedList,
 };
 use kernel::{
     model::book::{
@@ -13,7 +16,7 @@ use kernel::{
 use shared::error::{AppError, AppResult};
 use std::collections::HashMap;
 
-use crate::database::model::book::{BookRow, BookCheckoutRow, PaginatedBookRow};
+use crate::database::model::book::{BookCheckoutRow, BookRow, PaginatedBookRow};
 use crate::database::ConnectionPool;
 
 #[derive(new)]
@@ -88,8 +91,7 @@ impl BookRespository for BookRespositoryImpl {
         .await
         .map_err(AppError::SpecificOperationError)?;
 
-        let book_ids =
-            rows.iter().map(|book| book.book_id).collect::<Vec<_>>();
+        let book_ids = rows.iter().map(|book| book.book_id).collect::<Vec<_>>();
         let mut checkouts = self.find_checkouts(&book_ids).await?;
 
         let items = rows
@@ -132,10 +134,7 @@ impl BookRespository for BookRespositoryImpl {
 
         match row {
             Some(r) => {
-                let checkout = self
-                    .find_checkouts(&[r.book_id])
-                    .await?
-                    .remove(&r.book_id);
+                let checkout = self.find_checkouts(&[r.book_id]).await?.remove(&r.book_id);
                 Ok(Some(r.into_book(checkout)))
             }
             None => Ok(None),
@@ -194,10 +193,7 @@ impl BookRespository for BookRespositoryImpl {
 
 impl BookRespositoryImpl {
     // 指定された book_id が貸出中の場合に貸出情報を返すメソッドを追加する
-    async fn find_checkouts(
-        &self,
-        book_ids: &[BookId],
-    ) -> AppResult<HashMap<BookId, Checkout>> {
+    async fn find_checkouts(&self, book_ids: &[BookId]) -> AppResult<HashMap<BookId, Checkout>> {
         let res = sqlx::query_as!(
             BookCheckoutRow,
             r#"
