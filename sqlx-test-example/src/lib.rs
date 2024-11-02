@@ -1,14 +1,13 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
-
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[sqlx::test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    async fn it_works(pool: sqlx::PgPool) {
+        // 接続確認
+        let row = sqlx::query!("SELECT 1 + 1 AS result")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+        let result = row.result;
+        assert_eq!(result, Some(2))
     }
 }
