@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use crate::model::{id::UserId, role::Role};
 
@@ -18,7 +18,7 @@ pub struct BookOwner {
     pub name: String,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct CheckoutUser {
     pub id: UserId,

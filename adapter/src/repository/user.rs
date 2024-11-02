@@ -6,7 +6,7 @@ use kernel::model::user::{
     event::{CreateUser, DeleteUser, UpdateUserPassword, UpdateUserRole},
     User,
 };
-use kernel::repository::user::UserRepsitory;
+use kernel::repository::user::UserRepository;
 use shared::error::{AppError, AppResult};
 
 use crate::database::{model::user::UserRow, ConnectionPool};
@@ -17,7 +17,7 @@ pub struct UserRepsitoryImpl {
 }
 
 #[async_trait]
-impl UserRepsitory for UserRepsitoryImpl {
+impl UserRepository for UserRepsitoryImpl {
     async fn find_current_user(&self, current_user_id: UserId) -> AppResult<Option<User>> {
         let row = sqlx::query_as!(
             UserRow,

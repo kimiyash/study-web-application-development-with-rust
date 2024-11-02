@@ -12,8 +12,8 @@ use adapter::{
     },
 };
 use kernel::repository::{
-    auth::AuthRepository, book::BookRespository, checkout::CheckouRepository,
-    health::HealthCheckRepository, user::UserRepsitory,
+    auth::AuthRepository, book::BookRepository, checkout::CheckouRepository,
+    health::HealthCheckRepository, user::UserRepository,
 };
 use mockall::predicate::*;
 use mockall::*;
@@ -22,9 +22,9 @@ use shared::config::AppConfig;
 #[derive(Clone)]
 pub struct AppRegistryImpl {
     health_check_repository: Arc<dyn HealthCheckRepository>,
-    book_repository: Arc<dyn BookRespository>,
+    book_repository: Arc<dyn BookRepository>,
     auth_repository: Arc<dyn AuthRepository>,
-    user_repository: Arc<dyn UserRepsitory>,
+    user_repository: Arc<dyn UserRepository>,
     checkout_repository: Arc<dyn CheckouRepository>,
 }
 
@@ -56,9 +56,9 @@ impl AppRegistryImpl {
 #[mockall::automock]
 pub trait AppRegistryExt {
     fn health_check_repository(&self) -> Arc<dyn HealthCheckRepository>;
-    fn book_repository(&self) -> Arc<dyn BookRespository>;
+    fn book_repository(&self) -> Arc<dyn BookRepository>;
     fn auth_repository(&self) -> Arc<dyn AuthRepository>;
-    fn user_repository(&self) -> Arc<dyn UserRepsitory>;
+    fn user_repository(&self) -> Arc<dyn UserRepository>;
     fn checkout_repository(&self) -> Arc<dyn CheckouRepository>;
 }
 
@@ -67,7 +67,7 @@ impl AppRegistryExt for AppRegistryImpl {
         self.health_check_repository.clone()
     }
 
-    fn book_repository(&self) -> Arc<dyn BookRespository> {
+    fn book_repository(&self) -> Arc<dyn BookRepository> {
         self.book_repository.clone()
     }
 
@@ -75,7 +75,7 @@ impl AppRegistryExt for AppRegistryImpl {
         self.auth_repository.clone()
     }
 
-    fn user_repository(&self) -> Arc<dyn UserRepsitory> {
+    fn user_repository(&self) -> Arc<dyn UserRepository> {
         self.user_repository.clone()
     }
 

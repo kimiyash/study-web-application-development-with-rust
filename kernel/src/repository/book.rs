@@ -12,7 +12,7 @@ use crate::model::{
 
 #[mockall::automock]
 #[async_trait]
-pub trait BookRespository: Send + Sync {
+pub trait BookRepository: Send + Sync {
     async fn create(&self, event: CreateBook, user_id: UserId) -> AppResult<()>;
     async fn find_all(&self, options: BookListOptions) -> AppResult<PaginatedList<Book>>;
     async fn find_by_id(&self, book_id: BookId) -> AppResult<Option<Book>>;

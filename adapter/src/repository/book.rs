@@ -11,7 +11,7 @@ use kernel::{
         event::{CreateBook, UpdateBook},
         Book, BookListOptions, Checkout,
     },
-    repository::book::BookRespository,
+    repository::book::BookRepository,
 };
 use shared::error::{AppError, AppResult};
 use std::collections::HashMap;
@@ -25,7 +25,7 @@ pub struct BookRespositoryImpl {
 }
 
 #[async_trait]
-impl BookRespository for BookRespositoryImpl {
+impl BookRepository for BookRespositoryImpl {
     async fn create(&self, event: CreateBook, user_id: UserId) -> AppResult<()> {
         sqlx::query!(
             r#"
@@ -223,7 +223,7 @@ impl BookRespositoryImpl {
 
 #[cfg(test)]
 mod tests {
-    use kernel::{model::user::event::CreateUser, repository::user::UserRepsitory};
+    use kernel::{model::user::event::CreateUser, repository::user::UserRepository};
 
     use crate::repository::user::UserRepsitoryImpl;
 

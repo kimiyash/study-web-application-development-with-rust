@@ -11,7 +11,7 @@ use crate::model::{
 
 #[mockall::automock]
 #[async_trait]
-pub trait UserRepsitory: Send + Sync {
+pub trait UserRepository: Send + Sync {
     async fn find_current_user(&self, current_user_id: UserId) -> AppResult<Option<User>>;
     async fn find_all(&self) -> AppResult<Vec<User>>;
     async fn create(&self, event: CreateUser) -> AppResult<User>;
