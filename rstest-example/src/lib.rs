@@ -1,15 +1,16 @@
+pub fn sub(a: i32, b: i32) -> i32 {
+    a + b // 実装が間違っている
+}
+
 #[cfg(test)]
 mod tests {
-    use rstest::{fixture, rstest};
-
-    #[fixture]
-    fn 任意のフィクスチャ名() -> i32 {
-        24
+    use super::*;
+    #[test]
+    fn test_sub_1() {
+        assert_eq!(sub(10, 0), 10);
     }
-
-    #[rstest]
-    fn 任意の関数名(任意のフィクスチャ名: i32) {
-        // 任意のフィクスチャ名には fn 任意のフィクスチャ名() の実行結果 24 が入る
-        assert_eq!(任意のフィクスチャ名 * 2, 48);
+    #[test]
+    fn test_sub_2() {
+        assert_eq!(sub(100, 5), 95);
     }
 }
