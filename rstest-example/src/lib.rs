@@ -1,5 +1,5 @@
 pub fn sub(a: i32, b: i32) -> i32 {
-    a + b // 実装が間違っている
+    a - b
 }
 
 #[cfg(test)]
