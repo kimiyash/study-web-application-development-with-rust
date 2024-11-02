@@ -6,6 +6,11 @@ publish.workspace = true
 license.workspace = true
 
 [dependencies]
+mockall.workspace = true
 
 [dev-dependencies]
 rstest = "0.23.0"
+
+[[bin]]
+name = "your_binary_name" # 好きな名前
+path = "src/lib.rs"      # 実行ファイルのパス（通常は `src/main.rs`）

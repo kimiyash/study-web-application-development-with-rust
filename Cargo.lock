@@ -1802,6 +1802,7 @@ dependencies = [
 name = "rstest-example"
 version = "0.1.0"
 dependencies = [
+ "mockall",
  "rstest 0.23.0",
 ]
 

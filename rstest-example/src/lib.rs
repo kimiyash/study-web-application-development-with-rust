@@ -1,15 +1,21 @@
-pub fn sub(a: i32, b: i32) -> i32 {
-    a - b
+use std::u32;
+
+use mockall::predicate::*;
+use mockall::*;
+
+#[automock]
+trait example_trait {
+    fn example_method(&self, x: u32) -> u32;
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use rstest::rstest;
-    #[rstest]
-    #[case(10, 0, 10)]
-    #[case(100, 5, 95)]
-    fn test_sub(#[case] a: i32, #[case] b: i32, #[case] expected: i32) {
-        assert_eq!(sub(a, b), expected);
-    }
+fn example_func(
+    x: &dyn example_trait, v: u32
+) -> u32 {
+    x.example_method(v)
+}
+
+fn main() {
+    let mut mock = Mockexample_trait::new();
+    mock.expect_example_method().returning(|x| x + 1);
+    assert_eq!(10, example_func(&mock, 9));
 }
