@@ -5,8 +5,6 @@ use kernel::model::{
     user::{BookOwner, CheckoutUser},
 };
 
-use super::checkout::CheckoutRow;
-
 pub struct BookRow {
     pub book_id: BookId,
     pub title: String,
