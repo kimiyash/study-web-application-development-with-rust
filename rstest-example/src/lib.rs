@@ -9,7 +9,7 @@ mod tests {
     #[rstest]
     #[case(10, 0, 10)]
     #[case(100, 5, 95)]
-    fn test_sub_1(#[case] a: i32, #[case] b: i32, #[case] expected: i32) {
+    fn test_sub(#[case] a: i32, #[case] b: i32, #[case] expected: i32) {
         assert_eq!(sub(a, b), expected);
     }
 }
