@@ -71,6 +71,11 @@ tracing-opentelemetry = "0.22.0"
 opentelemetry-jaeger = { version = "0.20.0", features = ["rt-tokio"] }
 axum-extra = { version = "0.9.3", features = ["typed-header"] }
 strum = { version = "0.26.2", features = ["derive"] }
+mockall.workspace = true
+sqlx = { workspace = true, features = ["runtime-tokio", "postgres"] }
 
 [profile.dev.package.sqlx-macros]
 opt-level = 3
+
+[dev-dependencies]
+rstest = "0.23.0"

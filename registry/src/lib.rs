@@ -16,9 +16,11 @@ use kernel::repository::{
     health::HealthCheckRepository, user::UserRepsitory,
 };
 use shared::config::AppConfig;
+use mockall::predicate::*;
+use mockall::*;
 
 #[derive(Clone)]
-pub struct AppRegistry {
+pub struct AppRegistryImpl {
     health_check_repository: Arc<dyn HealthCheckRepository>,
     book_repository: Arc<dyn BookRespository>,
     auth_repository: Arc<dyn AuthRepository>,
@@ -26,7 +28,7 @@ pub struct AppRegistry {
     checkout_repository: Arc<dyn CheckouRepository>,
 }
 
-impl AppRegistry {
+impl AppRegistryImpl {
     pub fn new(
         pool: ConnectionPool,
         redis_client: Arc<RedisClient>,
@@ -49,24 +51,37 @@ impl AppRegistry {
             checkout_repository,
         }
     }
+}
 
-    pub fn health_check_repository(&self) -> Arc<dyn HealthCheckRepository> {
+#[mockall::automock]
+pub trait AppRegistryExt {
+    fn health_check_repository(&self) -> Arc<dyn HealthCheckRepository>;
+    fn book_repository(&self) -> Arc<dyn BookRespository>;
+    fn auth_repository(&self) -> Arc<dyn AuthRepository>;
+    fn user_repository(&self) -> Arc<dyn UserRepsitory>;
+    fn checkout_repository(&self) -> Arc<dyn CheckouRepository>;
+}
+
+impl AppRegistryExt for AppRegistryImpl {
+    fn health_check_repository(&self) -> Arc<dyn HealthCheckRepository> {
         self.health_check_repository.clone()
     }
 
-    pub fn book_repository(&self) -> Arc<dyn BookRespository> {
+    fn book_repository(&self) -> Arc<dyn BookRespository> {
         self.book_repository.clone()
     }
 
-    pub fn auth_repository(&self) -> Arc<dyn AuthRepository> {
+    fn auth_repository(&self) -> Arc<dyn AuthRepository> {
         self.auth_repository.clone()
     }
 
-    pub fn user_repository(&self) -> Arc<dyn UserRepsitory> {
+    fn user_repository(&self) -> Arc<dyn UserRepsitory> {
         self.user_repository.clone()
     }
 
-    pub fn checkout_repository(&self) -> Arc<dyn CheckouRepository> {
+    fn checkout_repository(&self) -> Arc<dyn CheckouRepository> {
         self.checkout_repository.clone()
     }
 }
+
+pub type AppRegistry = Arc<dyn AppRegistryExt + Send + Sync + 'static>;

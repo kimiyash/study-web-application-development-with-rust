@@ -9,6 +9,7 @@ use crate::model::{
 use async_trait::async_trait;
 use shared::error::AppResult;
 
+#[mockall::automock]
 #[async_trait]
 pub trait CheckouRepository: Send + Sync {
     async fn create(&self, event: CreateCheckout) -> AppResult<()>;
