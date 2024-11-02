@@ -1,14 +1,15 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
-
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use rstest::{fixture, rstest};
 
-    #[rstest::rstest]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    #[fixture]
+    fn 任意のフィクスチャ名() -> i32 {
+        24
+    }
+
+    #[rstest]
+    fn 任意の関数名(任意のフィクスチャ名: i32) {
+        // 任意のフィクスチャ名には fn 任意のフィクスチャ名() の実行結果 24 が入る
+        assert_eq!(任意のフィクスチャ名 * 2, 48);
     }
 }
