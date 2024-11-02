@@ -10,7 +10,7 @@ name = "app"
 path = "src/bin/app.rs"
 
 [workspace]
-members = ["api", "kernel", "adapter", "shared", "registry", "rstest-example"]
+members = ["api", "kernel", "adapter", "shared", "registry", "rstest-example", "sqlx-test-example"]
 
 [workspace.package]
 edition = "2021"
