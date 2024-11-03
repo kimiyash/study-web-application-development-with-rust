@@ -1,5 +1,5 @@
 [package]
-name = "rusty-book-manager"
+name = "my-book-manager"
 version = "0.1.0"
 edition.workspace = true
 license.workspace = true
@@ -10,7 +10,7 @@ name = "app"
 path = "src/bin/app.rs"
 
 [workspace]
-members = ["api", "kernel", "adapter", "shared", "registry", "rstest-example", "sqlx-test-example"]
+members = ["api", "kernel", "adapter", "shared", "registry"]
 
 [workspace.package]
 edition = "2021"
@@ -38,7 +38,7 @@ sqlx = { version = "0.7.3", features = [
     "chrono",
     "macros",
     "postgres",
-    "migrate"
+    "migrate",
 ] }
 strum = { version = "0.26.2", features = ["derive"] }
 thiserror = "1.0.44"
@@ -57,8 +57,8 @@ garde = { version = "0.18.0", features = ["derive", "email"] }
 tower-http = { version = "0.5.0", features = ["cors", "trace"] }
 adapter.workspace = true
 api.workspace = true
-registry.workspace = true
 shared.workspace = true
+registry.workspace = true
 anyhow.workspace = true
 axum.workspace = true
 utoipa.workspace = true
@@ -69,13 +69,6 @@ tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
 opentelemetry = "0.21.0"
 tracing-opentelemetry = "0.22.0"
 opentelemetry-jaeger = { version = "0.20.0", features = ["rt-tokio"] }
-axum-extra = { version = "0.9.3", features = ["typed-header"] }
-strum = { version = "0.26.2", features = ["derive"] }
-mockall.workspace = true
-sqlx = { workspace = true, features = ["runtime-tokio", "postgres"] }
 
 [profile.dev.package.sqlx-macros]
 opt-level = 3
-
-[dev-dependencies]
-rstest = "0.23.0"
