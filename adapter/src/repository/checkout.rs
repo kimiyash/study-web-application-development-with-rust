@@ -1,5 +1,3 @@
-use std::f32::consts::E;
-
 use crate::database::{
     model::checkout::{CheckoutRow, CheckoutStateRow, ReturnedCheckoutRow},
     ConnectionPool,
@@ -8,7 +6,6 @@ use async_trait::async_trait;
 use derive_new::new;
 use kernel::model::id::{BookId, CheckoutId, UserId};
 use kernel::model::{
-    auth::event,
     checkout::{
         event::{CreateCheckout, UpdateReturned},
         Checkout,

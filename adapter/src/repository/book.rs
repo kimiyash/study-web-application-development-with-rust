@@ -2,7 +2,6 @@ use async_trait::async_trait;
 use derive_new::new;
 use kernel::model::{
     book::event::DeleteBook,
-    checkout,
     id::{BookId, UserId},
     list::PaginatedList,
 };

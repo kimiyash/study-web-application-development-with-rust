@@ -1,5 +1,4 @@
 use crate::model::{
-    auth::event,
     checkout::{
         event::{CreateCheckout, UpdateReturned},
         Checkout,

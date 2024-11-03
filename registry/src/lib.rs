@@ -1,10 +1,7 @@
 use std::sync::Arc;
 
 use adapter::{
-    database::{
-        model::{auth, checkout},
-        ConnectionPool,
-    },
+    database::ConnectionPool,
     redis::RedisClient,
     repository::{
         auth::AuthRepositoryImpl, book::BookRespositoryImpl, checkout::CheckouRepositoryImpl,
@@ -16,7 +13,6 @@ use kernel::repository::{
     health::HealthCheckRepository, user::UserRepository,
 };
 use mockall::predicate::*;
-use mockall::*;
 use shared::config::AppConfig;
 
 #[derive(Clone)]

@@ -1,5 +1,4 @@
 use anyhow::Result;
-use axum::http::uri::Authority;
 
 pub struct AppConfig {
     pub database: DatabaseConfig,
