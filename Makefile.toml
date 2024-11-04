@@ -46,6 +46,7 @@ run_task = [
         "compose-up-db",
         "migrate",
         "compose-up-redis",
+        "compose-up-jaeger"
     ]}
 ]
 
@@ -56,6 +57,11 @@ args = [
     "compose", "build", "app",
     "--build-arg", "BUILDKIT_INLINE_CACHE=1", "${@}"
 ]
+
+[tasks.compose-up-jaeger]
+extend = "set-env-docker"
+command = "docker"
+args = ["compose", "up", "-d", "jaeger"]
 
 [tasks.run]
 extend = "set-env-local"
