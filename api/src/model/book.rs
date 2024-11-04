@@ -14,7 +14,12 @@ use serde::{Deserialize, Serialize};
 
 use super::user::BookOwner;
 
+#[cfg(debug_assertions)]
+use utoipa::ToSchema;
+
+
 #[derive(Debug, Deserialize, Validate)]
+#[cfg_attr(debug_assertions, derive(ToSchema))]
 #[serde(rename_all = "camelCase")]
 pub struct CreateBookRequest {
     #[garde(length(min = 1))]
@@ -45,6 +50,7 @@ impl From<CreateBookRequest> for CreateBook {
 }
 
 #[derive(Debug, Deserialize, Validate)]
+#[cfg_attr(debug_assertions, derive(ToSchema))]
 #[serde(rename_all = "camelCase")]
 pub struct UpdateBookRequest {
     #[garde(length(min = 1))]
@@ -84,6 +90,7 @@ impl From<UpdateBookRequestWithIds> for UpdateBook {
 }
 
 #[derive(Debug, Deserialize, Validate)]
+#[cfg_attr(debug_assertions, derive(ToSchema))]
 pub struct BookListQuery {
     #[garde(range(min = 0))]
     #[serde(default = "default_limit")]
@@ -106,6 +113,7 @@ impl From<BookListQuery> for BookListOptions {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
+#[cfg_attr(debug_assertions, derive(ToSchema))]
 #[serde(rename_all = "camelCase")]
 pub struct BookResponse {
     pub id: BookId,
@@ -141,6 +149,7 @@ impl From<Book> for BookResponse {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
+#[cfg_attr(debug_assertions, derive(ToSchema))]
 #[serde(rename_all = "camelCase")]
 pub struct BookCheckoutResponse {
     pub id: CheckoutId,
@@ -164,6 +173,7 @@ impl From<Checkout> for BookCheckoutResponse {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
+#[cfg_attr(debug_assertions, derive(ToSchema))]
 #[serde(rename_all = "camelCase")]
 pub struct PaginatedBookResponse {
     pub total: i64,

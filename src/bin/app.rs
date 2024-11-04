@@ -25,7 +25,7 @@ use tracing::Level;
 use tower_http::cors::{self, CorsLayer};
 
 #[cfg(debug_assertions)]
-// use api::openapi::ApiDoc;
+use api::openapi::ApiDoc;
 #[cfg(debug_assertions)]
 use utoipa::OpenApi;
 #[cfg(debug_assertions)]
@@ -95,8 +95,8 @@ async fn bootstrap() -> Result<()> {
     let registry = Arc::new(AppRegistryImpl::new(pool, kv, app_config));
 
     let router = Router::new().merge(v1::routes()).merge(auth::routes());
-    // #[cfg(debug_assertions)]
-    // let router = router.merge(Redoc::with_url("/docs", ApiDoc::openapi()));
+    #[cfg(debug_assertions)]
+    let router = router.merge(Redoc::with_url("/docs", ApiDoc::openapi()));
 
     let app = router
         .layer(
